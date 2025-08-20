@@ -1,13 +1,19 @@
 #include <stdio.h>
 
+//funcao para calcular a determinante
+
 int determinante(int matriz[10][10], int n) {
     int det = 0;
+    //verificar se a matriz eh 1x1
     if (n == 1) {
         return matriz[0][0];
+    //verificar se a matriz eh 2x2
     } else if (n == 2) {
         return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
+    //desenvolvimento de laplace caso ela seja maior que 2x2
     } else {
         for (int i = 0; i < n; i++) {
+            //matriz do cofator
             int submatriz[10][10];
             for (int j = 1; j < n; j++) {
                 for (int k = 0; k < n; k++) {
@@ -18,6 +24,7 @@ int determinante(int matriz[10][10], int n) {
                     }
                 }
             }
+            //calculo da determinante
             det += matriz[0][i] * determinante(submatriz, n - 1) * (i % 2 == 0 ? 1 : -1);
         }
     }
@@ -52,6 +59,7 @@ int main(){
         printf("\n");
     }
 
+    //chamada da funcao para calcular o determinante
     printf("Determinante da matriz simetrica: %d\n", determinante(matriz, n));
     return 0;
 }
